@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LoginMVVM</string>
+    <string name="title">Demo MVVM</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="user_empty">Usuario no puede estar vacío</string>
+    <string name="password_empty">Contraseña no puede estar vacío</string>
+    <string name="error_login">Usuario inválido</string>
 </resources>
