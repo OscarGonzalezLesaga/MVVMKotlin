@@ -6,7 +6,7 @@ import com.gonzalez.oscar.loginmvvm.data.User
 
 interface ILoginRepository {
 
-    fun doLogin(user: String, password: String): Either<ErrorLogin, User>
+    suspend fun doLogin(user: String, password: String): Either<ErrorLogin, User>
 
     fun getUser()
 }

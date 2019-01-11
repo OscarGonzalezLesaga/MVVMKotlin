@@ -17,13 +17,16 @@ class LoginActivity : BaseActivity() {
 
     override fun getLayout() = R.layout.activity_login
 
+    override fun onResume() {
+        super.onResume()
+        getViewModel<LoginViewModel>().stateLogin.observe(this, Observer {
+            it.either(::manageError, ::manageCorrectLogin)
+        })
+    }
+
     fun loginButtonClicked(v: View) {
         hideKeyboard()
         getViewModel<LoginViewModel>().validateUser(username.text.toString(), password.text.toString())
-            .observe(
-                this, Observer {
-                    it.either(::manageError, ::manageCorrectLogin)
-                })
     }
 
     private fun manageCorrectLogin(user: User) {

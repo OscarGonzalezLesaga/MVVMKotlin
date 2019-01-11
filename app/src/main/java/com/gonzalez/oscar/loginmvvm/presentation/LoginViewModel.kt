@@ -7,25 +7,29 @@ import com.gonzalez.oscar.loginmvvm.data.Either
 import com.gonzalez.oscar.loginmvvm.data.ErrorLogin
 import com.gonzalez.oscar.loginmvvm.data.User
 import com.gonzalez.oscar.loginmvvm.domain.ILoginRepository
+import kotlinx.coroutines.*
 
 class LoginViewModel(private val loginRespository: ILoginRepository) : ViewModel() {
 
-    fun validateUser(user: String, password: String): LiveData<Either<ErrorLogin, User>> {
-        val result = MutableLiveData<Either<ErrorLogin, User>>()
+    private var userLiveDataData = MutableLiveData<Either<ErrorLogin, User>>()
+
+    val stateLogin: LiveData<Either<ErrorLogin, User>>
+        get() = userLiveDataData
+
+    fun validateUser(user: String, password: String) {
         when {
             user.isNullOrEmpty() -> {
-                result.value = Either.Error(ErrorLogin.USER_ERROR)
+                userLiveDataData.value = Either.Error(ErrorLogin.USER_ERROR)
             }
             password.isNullOrEmpty() -> {
-                result.value = Either.Error(ErrorLogin.PASSWORD_ERROR)
+                userLiveDataData.value = Either.Error(ErrorLogin.PASSWORD_ERROR)
             }
             else -> {
-                result.value = loginRespository.doLogin(user, password)
+                GlobalScope.async {
+                    //simulate call WS async
+                    userLiveDataData.value = loginRespository.doLogin(user, password)
+                }
             }
         }
-
-        return result
     }
-
-
 }
