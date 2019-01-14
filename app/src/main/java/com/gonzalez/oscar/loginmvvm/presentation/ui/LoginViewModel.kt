@@ -1,4 +1,4 @@
-package com.gonzalez.oscar.loginmvvm.presentation
+package com.gonzalez.oscar.loginmvvm.presentation.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,8 @@ class LoginViewModel(private val loginRespository: ILoginRepository) : ViewModel
     private var userLiveDataData = MutableLiveData<Either<ErrorLogin, User>>()
 
     val stateLogin: LiveData<Either<ErrorLogin, User>>
-        get() = userLiveDataData
+        get() =
+            userLiveDataData
 
     fun validateUser(user: String, password: String) {
         when {
@@ -25,9 +26,9 @@ class LoginViewModel(private val loginRespository: ILoginRepository) : ViewModel
                 userLiveDataData.value = Either.Error(ErrorLogin.PASSWORD_ERROR)
             }
             else -> {
-                GlobalScope.async {
+                GlobalScope.launch {
                     //simulate call WS async
-                    userLiveDataData.value = loginRespository.doLogin(user, password)
+                    userLiveDataData.postValue(loginRespository.doLogin(user, password).await())
                 }
             }
         }

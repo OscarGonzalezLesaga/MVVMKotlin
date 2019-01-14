@@ -1,4 +1,4 @@
-package com.gonzalez.oscar.loginmvvm.presentation
+package com.gonzalez.oscar.loginmvvm.presentation.ui
 
 import android.view.View
 import androidx.lifecycle.Observer
@@ -10,6 +10,9 @@ import com.gonzalez.oscar.loginmvvm.utilities.InjectorUtils
 import com.gonzalez.oscar.loginmvvm.utilities.hideKeyboard
 import com.gonzalez.oscar.loginmvvm.utilities.toast
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.withContext
 
 class LoginActivity : BaseActivity() {
 
@@ -19,6 +22,7 @@ class LoginActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+
         getViewModel<LoginViewModel>().stateLogin.observe(this, Observer {
             it.either(::manageError, ::manageCorrectLogin)
         })
