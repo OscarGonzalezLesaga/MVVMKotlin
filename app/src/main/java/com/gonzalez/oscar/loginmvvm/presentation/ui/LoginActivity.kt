@@ -1,6 +1,5 @@
 package com.gonzalez.oscar.loginmvvm.presentation.ui
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.gonzalez.oscar.loginmvvm.R
@@ -29,7 +28,6 @@ class LoginActivity : BaseActivity() {
 
     fun loginButtonClicked(v: View) {
         hideKeyboard()
-        Log.d("Testing", "Testing")
         getViewModel<LoginViewModel>().validateUser(username.text.toString(), password.text.toString())
     }
 
