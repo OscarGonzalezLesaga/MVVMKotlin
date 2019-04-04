@@ -19,10 +19,10 @@ class LoginViewModel(private val loginRespository: ILoginRepository) : ViewModel
 
     fun validateUser(user: String, password: String) {
         when {
-            user.isNullOrEmpty() -> {
+            user.isEmpty() -> {
                 userLiveDataData.value = Either.Error(ErrorLogin.USER_ERROR)
             }
-            password.isNullOrEmpty() -> {
+            password.isEmpty() -> {
                 userLiveDataData.value = Either.Error(ErrorLogin.PASSWORD_ERROR)
             }
             else -> {

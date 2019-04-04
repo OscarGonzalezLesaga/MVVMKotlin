@@ -1,5 +1,6 @@
 package com.gonzalez.oscar.loginmvvm.presentation.ui
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import com.gonzalez.oscar.loginmvvm.R
@@ -9,10 +10,8 @@ import com.gonzalez.oscar.loginmvvm.presentation.base.BaseActivity
 import com.gonzalez.oscar.loginmvvm.utilities.InjectorUtils
 import com.gonzalez.oscar.loginmvvm.utilities.hideKeyboard
 import com.gonzalez.oscar.loginmvvm.utilities.toast
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.withContext
+import kotlinx.android.synthetic.main.activity_login.password
+import kotlinx.android.synthetic.main.activity_login.username
 
 class LoginActivity : BaseActivity() {
 
@@ -30,6 +29,7 @@ class LoginActivity : BaseActivity() {
 
     fun loginButtonClicked(v: View) {
         hideKeyboard()
+        Log.d("Testing", "Testing")
         getViewModel<LoginViewModel>().validateUser(username.text.toString(), password.text.toString())
     }
 
